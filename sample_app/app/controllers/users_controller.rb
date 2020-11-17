@@ -12,4 +12,27 @@ class UsersController < ApplicationController
     @user = User.new
   end
   
+  def create
+    @user = User.new(user_params)
+    # @user = User.new(params[:user])
+    # The reason is that initializing the entire params hash is extremely dangerous.
+    # It arranges to pass to User.new all data submitted by a user.
+
+    if @user.save
+      # Handle a successful save.
+    else
+      render 'new'
+    end
+  end
+
+  # This code returns a version of the params hash with only the permitted attributes 
+  # (while raising an error if the :user attribute is missing).
+  # To facilitate the use of these parameters, it’s conventional to introduce an auxiliary 
+  # method called user_params (which returns an appropriate initialization hash) and use it 
+  # in place of params[:user]:
+  private
+    def user_params
+      params.require(:user).permit(:name, :email, :password, :password_confirmation)
+    end
+
 end
