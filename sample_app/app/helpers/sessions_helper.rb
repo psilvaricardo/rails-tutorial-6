@@ -34,8 +34,16 @@ module SessionsHelper
     !current_user.nil?
   end
   
-  # Logs out the current user.
+  # Forgets a persistent session.
+  def forget(user)
+    User.forget
+    cookies.delete(:user_id)
+    cookies.delete(:remember_token)
+  end
+
+  # Logs out the current User.
   def log_out
+    forget(current_user)
     session.delete(:user_id)
     @current_user = nil
   end
