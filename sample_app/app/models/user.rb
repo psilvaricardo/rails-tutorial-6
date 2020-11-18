@@ -33,8 +33,13 @@ class User < ApplicationRecord
         BCrypt::Password.create(string, cost: cost)
     end
 
+    # Returns true if the given token matches the digest.
+    def authenticated?(remember_token)
+        BCrypt::Password.new(remember_digest).is_password?(remember_token)
+    end
+    
     class << self
-        
+
         # Returns the hash digest of the given string.
         def digest(string)
             cost = ActiveModel::SecurePassword.min_cost ? BCrypt::Engine::MIN_COST :
