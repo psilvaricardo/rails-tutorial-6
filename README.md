@@ -15,7 +15,6 @@ The Gemfiles in the [online version](https://www.railstutorial.org/book) should 
   - Initial [`Gemfile`](https://github.com/mhartl/rails_tutorial_6th_edition_gemfiles/blob/master/sample_app/Gemfile_initial)
   - Final [`Gemfile`](https://github.com/mhartl/rails_tutorial_6th_edition_gemfiles/blob/master/sample_app/Gemfile)
 * `foodlog` A beginner food log project to start learning the Ruby on Rails framework, this will give you the scope of what Ruby on Rails is like in 2020.
-  - The video training is located at [*Ruby On Rails Crash Course 2020*](https://www.youtube.com/watch?v=B3Fbujmgo60)
 
 
 *Note*: The easiest way to copy a Gemfile is to click on the relevant link and then select “Raw”. Selecting all (Ctrl/Cmd-A, depending on system) and copying (Ctrl/Cmd-C) then lets you paste (Ctrl/Cmd-V) into your application’s Gemfile.
