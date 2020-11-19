@@ -17,10 +17,7 @@ class SessionsController < ApplicationController
       # Log the user in and redirect to the user's show page.
       log_in user
       # params[:session][:remember_me] is '1' if the box is checked '0' otherwise.
-      params[:session][:remember_me] == '1' ? remember(user) : forget(user
-      # Remembering a user after login
-      remember user
-      
+      params[:session][:remember_me] == '1' ? remember(user) : forget(user)
       redirect_to user
     else
       # Create an error message.
