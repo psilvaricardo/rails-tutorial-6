@@ -2,8 +2,7 @@
 
 A beginner food log project to start learning the Ruby on Rails framework, this will give you the scope of what Ruby on Rails is like in 2020.
 
-*Note*: This material can be reviewed online, by the time of writing (November 2020) the video training is located at [*Ruby On Rails Crash Course 2020*](https://www.youtube.com/watch?v=B3Fbujmgo60)
-
+This Ruby on Rails application is part of a crash course published on [Traversy Media](https://www.traversymedia.com/) authored by Andy Leverenz of [@webcrunchblog](https://twitter.com/webcrunchblog) creator of [web-crunch.com](https://web-crunch.com) and the course [Hello Rails](https://hellorails.io). 
 
 ## The Rails Crash Course online:
 
@@ -26,3 +25,5 @@ A beginner food log project to start learning the Ruby on Rails framework, this 
 * `01:50:20` – Active Record Relations – Adding a Category relationship
 * `02:03:10` – Wrapping up
 
+
+*Note*: This material can be reviewed online, by the time of writing (November 2020) the video training is located at [*Ruby On Rails Crash Course 2020*](https://www.youtube.com/watch?v=B3Fbujmgo60)

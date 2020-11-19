@@ -12,6 +12,12 @@
 
 ActiveRecord::Schema.define(version: 2020_11_19_183947) do
 
+  create_table "categories", force: :cascade do |t|
+    t.string "title"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "entries", force: :cascade do |t|
     t.string "meal_type"
     t.integer "calories"
@@ -20,6 +26,8 @@ ActiveRecord::Schema.define(version: 2020_11_19_183947) do
     t.integer "fats"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "category_id"
+    t.index ["category_id"], name: "index_entries_on_category_id"
   end
 
 end
