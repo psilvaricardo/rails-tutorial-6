@@ -17,7 +17,7 @@ The Gemfiles in the [online version](https://www.railstutorial.org/book) should 
 
 *Note*: The easiest way to copy a Gemfile is to click on the relevant link and then select “Raw”. Selecting all (Ctrl/Cmd-A, depending on system) and copying (Ctrl/Cmd-C) then lets you paste (Ctrl/Cmd-V) into your application’s Gemfile.
 
+# More applications as part of this training
 
-* `foodlog` A beginner food log project to start learning the Ruby on Rails framework, this will give you the scope of what Ruby on Rails is like in 2020. This Ruby on Rails application is part of a crash course published on [Traversy Media](https://www.traversymedia.com/) authored by Andy Leverenz of [@webcrunchblog](https://twitter.com/webcrunchblog) creator of [web-crunch.com](https://web-crunch.com) and the course [Hello Rails](https://hellorails.io).
-
+* `foodlog` This Ruby on Rails application is part of a crash course published on [Traversy Media](https://www.traversymedia.com/) authored by Andy Leverenz of [@webcrunchblog](https://twitter.com/webcrunchblog) creator of [web-crunch.com](https://web-crunch.com) and the course [Hello Rails](https://hellorails.io). A beginner food log project to start learning the Ruby on Rails framework, this will give you the scope of what Ruby on Rails is like in 2020.
 
