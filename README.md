@@ -6,16 +6,18 @@ The Gemfiles in the [online version](https://www.railstutorial.org/book) should 
 
 ## The Gemfiles
 
-* `hello_app` from Chapter 1
+* `hello_app` from Chapter 1 of the [`Ruby on Rails Tutorial`](https://learning.oreilly.com/library/view/ruby-on-rails/9780136702726/)
   - Initial [`Gemfile`](https://github.com/mhartl/rails_tutorial_6th_edition_gemfiles/blob/master/hello_app/Gemfile) 
   - Final [`Gemfile`](https://github.com/mhartl/rails_tutorial_6th_edition_gemfiles/blob/master/hello_app/Gemfile_final)
-* `toy_app` from Chapter 2
+* `toy_app` from Chapter 2 of the [`Ruby on Rails Tutorial`](https://learning.oreilly.com/library/view/ruby-on-rails/9780136702726/)
   - [`Gemfile`](https://github.com/mhartl/rails_tutorial_6th_edition_gemfiles/blob/master/toy_app/Gemfile)
-* `sample_app` from Chapters 3–14
+* `sample_app` from Chapters 3–14 of the [`Ruby on Rails Tutorial`](https://learning.oreilly.com/library/view/ruby-on-rails/9780136702726/)
   - Initial [`Gemfile`](https://github.com/mhartl/rails_tutorial_6th_edition_gemfiles/blob/master/sample_app/Gemfile_initial)
   - Final [`Gemfile`](https://github.com/mhartl/rails_tutorial_6th_edition_gemfiles/blob/master/sample_app/Gemfile)
-* `foodlog` A beginner food log project to start learning the Ruby on Rails framework, this will give you the scope of what Ruby on Rails is like in 2020.
-
 
 *Note*: The easiest way to copy a Gemfile is to click on the relevant link and then select “Raw”. Selecting all (Ctrl/Cmd-A, depending on system) and copying (Ctrl/Cmd-C) then lets you paste (Ctrl/Cmd-V) into your application’s Gemfile.
+
+
+* `foodlog` A beginner food log project to start learning the Ruby on Rails framework, this will give you the scope of what Ruby on Rails is like in 2020. This Ruby on Rails application is part of a crash course published on [Traversy Media](https://www.traversymedia.com/) authored by Andy Leverenz of [@webcrunchblog](https://twitter.com/webcrunchblog) creator of [web-crunch.com](https://web-crunch.com) and the course [Hello Rails](https://hellorails.io).
+
 
