@@ -1,15 +1,7 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  text: 
-  array: MyString
-  true,: MyString
-  default: MyString
-  []: MyString
+  category: MyText
 
 two:
-  text: 
-  array: MyString
-  true,: MyString
-  default: MyString
-  []: MyString
+  category: MyText
