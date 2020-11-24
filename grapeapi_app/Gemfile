@@ -28,6 +28,9 @@ gem 'grape'
 # Very useful gem to visualize API routes
 gem 'grape_on_rails_routes'
 
+# Adds support for the DB using the rails console
+gem 'hirb'
+
 # Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin AJAX possible
 # gem 'rack-cors'
 
