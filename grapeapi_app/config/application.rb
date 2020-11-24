@@ -47,5 +47,8 @@ module GrapeapiApp
     # Enable escaping HTML in JSON.
     config.active_support.escape_html_entities_in_json = true
 
+    # downgrade your autoloader to classic
+    config.autoloader = :classic
+
   end
 end

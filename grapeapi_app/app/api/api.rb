@@ -1,7 +1,9 @@
 
 class API < Grape::API
-    # This class will handle the REST mappings
-    format :json
     prefix :api
+    format :json
     version 'v1', :path
+
+    mount V1::ApiBooks
+
 end

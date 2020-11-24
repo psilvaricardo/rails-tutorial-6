@@ -1,7 +1,4 @@
 Rails.application.routes.draw do
-
-  resources :books
-
   # I need to tell Rails how to connect the routes that 
   # would be comming in our application and forward them 
   # to the Grapes API, mounting the Grape endpoint.
