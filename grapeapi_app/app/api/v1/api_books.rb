@@ -2,6 +2,10 @@ module V1
     class ApiBooks < Grape::API
         format :json
 
+        rescue_from :all do |e|
+          error!({ error: "Book not found."}, 400)
+        end
+
         helpers do
             def book_params(params)
               {
@@ -59,6 +63,22 @@ module V1
           book = Book.find(params[:id])
           raise NotFoundError if book.nil?
           book.destroy!
+        end
+
+        desc 'Book search using Google API'
+        params do
+          optional :q, type: String, desc: 'Query Search parameter.'
+        end
+        get '/books/search/:q' do
+          if params[:q].present?
+            # https://github.com/visoft/google_books
+            books = GoogleBooks::API.search(params[:q])
+            raise NotFoundError if books.nil?
+            present books            
+          else
+            # without query param returns http 400
+            error!
+          end
         end
 
     end
