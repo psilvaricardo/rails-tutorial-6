@@ -5,5 +5,6 @@ class API < Grape::API
     version 'v1', :path
 
     mount V1::ApiBooks
+    mount V1::ApiPublishers
 
 end

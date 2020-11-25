@@ -3,7 +3,7 @@ module V1
         format :json
 
         rescue_from :all do |e|
-          error!({ error: "Book not found."}, 400)
+          error!({ error: e.message}, 400)
         end
 
         helpers do
@@ -16,30 +16,47 @@ module V1
             end
         end
         
-        desc 'Returns the full list of books'
+        desc 'Returns all books'
         get '/books' do
             books = Book.all
             present books
         end
 
-        desc 'Retrieve a book based by ID.'
+        desc 'Retrieve book [by ID]'
         params do
           requires :id, type: Integer, desc: 'Book ID.'
         end
         get '/books/:id' do
           book = Book.find(params[:id])
           raise NotFoundError if book.nil?
-          present book
+          # https://stackoverflow.com/questions/3462754/rails-object-relationships-and-json-rendering
+          book.as_json(:include => [:publisher])
         end
 
-        desc 'Creates a new book'
+        desc 'Creates new book'
         params do
           requires :title,          type: String
           requires :description,    type: String
           requires :page_count,     type: Integer
+          requires :publisher_name, type: String
         end
         post '/books' do
-          Book.create!(book_params(params))
+          publisher = Publisher.find_by(name: params[:publisher_name])
+          # let's create new Publisher if a new one is passed in params
+          publisher = Publisher.create!(
+            {
+              name:       params[:publisher_name]
+            } 
+          ) if publisher.nil?
+          
+          book = Book.create!(
+            {
+              title:          params[:title],
+              description:    params[:description],
+              page_count:     params[:page_count],
+              publisher_id:   publisher.id
+            }
+          )
         end
         
         desc 'Updates book'
