@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_24_194335) do
+ActiveRecord::Schema.define(version: 2020_11_26_185921) do
 
   create_table "books", force: :cascade do |t|
     t.string "title"
@@ -20,6 +20,17 @@ ActiveRecord::Schema.define(version: 2020_11_24_194335) do
     t.datetime "updated_at", precision: 6, null: false
     t.integer "publisher_id"
     t.index ["publisher_id"], name: "index_books_on_publisher_id"
+  end
+
+  create_table "books_categories_joins", id: false, force: :cascade do |t|
+    t.integer "books_id"
+    t.integer "categories_id"
+  end
+
+  create_table "categories", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "publishers", force: :cascade do |t|
