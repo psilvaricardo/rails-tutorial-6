@@ -30,33 +30,35 @@ module V1
           book = Book.find(params[:id])
           raise NotFoundError if book.nil?
           # https://stackoverflow.com/questions/3462754/rails-object-relationships-and-json-rendering
-          book.as_json(:include => [:publisher])
+          book.as_json(:include => [:publisher  => { :only => :name }, 
+                                    :categories => { :only => :name } ])
         end
 
         desc 'Creates new book'
-        params do
-          requires :title,          type: String
-          requires :description,    type: String
-          requires :page_count,     type: Integer
-          requires :publisher_name, type: String
-        end
+        # params do
+        #   requires :book,           type: String
+        #   requires :publisher,      type: String
+        #   requires :categories,     type: String
+        # end
         post '/books' do
-          publisher = Publisher.find_by(name: params[:publisher_name])
-          # let's create new Publisher if a new one is passed in params
-          publisher = Publisher.create!(
-            {
-              name:       params[:publisher_name]
-            } 
-          ) if publisher.nil?
+          # Finds the record with the given attributes or 
+          # creates it with the attributes if one is not found
+          publisher = Publisher.find_or_create_by!({name: params[:publisher][:name]})
           
-          book = Book.create!(
+          book = Book.find_or_initialize_by(
             {
-              title:          params[:title],
-              description:    params[:description],
-              page_count:     params[:page_count],
+              title:          params[:book][:title],
+              description:    params[:book][:description],
+              page_count:     params[:book][:page_count],
               publisher_id:   publisher.id
             }
           )
+
+          params[:categories].each do |cat| 
+            book.categories << Category.find_or_create_by({:name => cat})
+          end
+          book.save!
+
         end
         
         desc 'Updates book'
@@ -65,11 +67,30 @@ module V1
           requires :title,          type: String
           requires :description,    type: String
           requires :page_count,     type: Integer
+          requires :name,           type: String # Publisher name
         end
         put '/books' do
+          # Finds the record with the given attributes or 
+          # creates it with the attributes if one is not found
+          publisher = Publisher.find_or_create_by!({name: params[:name]})
+
           book = Book.find(params[:id])
           raise NotFoundError if book.nil?
-          book.update_attributes!(book_params(params))
+          
+          book.update_attributes!(
+            {
+              title:          params[:title],
+              description:    params[:description],
+              page_count:     params[:page_count],
+              publisher_id:   publisher.id
+            }
+          )
+
+          params[:categories].each do |cat| 
+            book.categories << Category.find_or_create_by({:name => cat})
+          end
+          book.save!
+
         end
 
         desc 'Deletes book'
