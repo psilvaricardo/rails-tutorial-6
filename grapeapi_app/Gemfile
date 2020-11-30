@@ -34,6 +34,9 @@ gem 'hirb'
 # Adding support to search with the Google Books API
 gem 'google_books'
 
+# Adding rspec for TDD
+gem 'rspec'
+
 # Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin AJAX possible
 # gem 'rack-cors'
 
