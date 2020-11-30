@@ -5,16 +5,6 @@ module V1
         rescue_from :all do |e|
           error!({ error: e.message}, 400)
         end
-
-        helpers do
-            def book_params(params)
-              {
-                title:          params[:title],
-                description:    params[:description],
-                page_count:     params[:page_count]
-              }
-            end
-        end
         
         desc 'Returns all books'
         get '/books' do
@@ -35,11 +25,6 @@ module V1
         end
 
         desc 'Creates new book'
-        # params do
-        #   requires :book,           type: String
-        #   requires :publisher,      type: String
-        #   requires :categories,     type: String
-        # end
         post '/books' do
           # Finds the record with the given attributes or 
           # creates it with the attributes if one is not found
@@ -63,39 +48,40 @@ module V1
         
         desc 'Updates book'
         params do
-          requires :id,             type: Integer
-          requires :title,          type: String
-          requires :description,    type: String
-          requires :page_count,     type: Integer
-          requires :name,           type: String # Publisher name
+          requires :id, type: Integer, desc: 'Book ID.'
         end
-        put '/books' do
+        put '/books/:id' do
           # Finds the record with the given attributes or 
           # creates it with the attributes if one is not found
-          publisher = Publisher.find_or_create_by!({name: params[:name]})
+          publisher = Publisher.find_or_create_by!({name: params[:publisher][:name]})
 
           book = Book.find(params[:id])
-          raise NotFoundError if book.nil?
+           raise NotFoundError if book.nil?
           
           book.update_attributes!(
             {
-              title:          params[:title],
-              description:    params[:description],
-              page_count:     params[:page_count],
+              title:          params[:book][:title],
+              description:    params[:book][:description],
+              page_count:     params[:book][:page_count],
               publisher_id:   publisher.id
             }
           )
 
-          params[:categories].each do |cat| 
-            book.categories << Category.find_or_create_by({:name => cat})
+          if params[:categories].present?
+            book.categories.delete_all 
+
+            params[:categories].each do |cat|
+              book.categories << Category.find_or_create_by({:name => cat})
+            end 
+
           end
           book.save!
-
+          
         end
 
         desc 'Deletes book'
         params do
-          requires :id, type: Integer
+          requires :id, type: Integer, desc: 'Book ID.'
         end
         delete '/books/:id' do
           book = Book.find(params[:id])
