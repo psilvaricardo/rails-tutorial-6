@@ -32,7 +32,10 @@ gem 'grape_on_rails_routes'
 gem 'hirb'
 
 # Adding support to search with the Google Books API
-gem 'google_books'
+# gem 'google_books'
+
+# Adding support to add HTTP requests
+gem 'httparty'
 
 # Adding rspec for TDD
 gem 'rspec'

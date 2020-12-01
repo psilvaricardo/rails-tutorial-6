@@ -2,14 +2,25 @@ module V1
     class ApiBooks < Grape::API
         format :json
 
-        rescue_from :all do |e|
-          error!({ error: e.message}, 400)
-        end
-        
+        # GET
+
         desc 'Returns all books'
         get '/books' do
+          Rails.logger.debug 'Returns all books'
             books = Book.all
             present books
+        end
+
+        desc 'Book search using Google API'
+        params do
+          optional :q, type: String, desc: 'Query Search parameter.'
+        end
+        get '/books/search' do
+          Rails.logger.debug 'Book search using Google API'
+          Rails.logger.debug params
+          url = "https://www.googleapis.com/books/v1/volumes?q=#{params[:q]}&maxResults=15"
+          response = HTTParty.get(url)
+          result = response.parsed_response
         end
 
         desc 'Retrieve book [by ID]'
@@ -17,6 +28,7 @@ module V1
           requires :id, type: Integer, desc: 'Book ID.'
         end
         get '/books/:id' do
+          Rails.logger.debug 'Retrieve book [by ID]'
           book = Book.find(params[:id])
           raise NotFoundError if book.nil?
           # https://stackoverflow.com/questions/3462754/rails-object-relationships-and-json-rendering
@@ -24,8 +36,12 @@ module V1
                                     :categories => { :only => :name } ])
         end
 
+
+        # POST
+
         desc 'Creates new book'
         post '/books' do
+          Rails.logger.debug 'Creates new book'
           # Finds the record with the given attributes or 
           # creates it with the attributes if one is not found
           publisher = Publisher.find_or_create_by!({name: params[:publisher][:name]})
@@ -45,12 +61,15 @@ module V1
           book.save!
 
         end
+
+        # PUT
         
         desc 'Updates book'
         params do
           requires :id, type: Integer, desc: 'Book ID.'
         end
         put '/books/:id' do
+          Rails.logger.debug 'Updates book'
           # Finds the record with the given attributes or 
           # creates it with the attributes if one is not found
           publisher = Publisher.find_or_create_by!({name: params[:publisher][:name]})
@@ -79,30 +98,17 @@ module V1
           
         end
 
+        # DELETE
+
         desc 'Deletes book'
         params do
           requires :id, type: Integer, desc: 'Book ID.'
         end
         delete '/books/:id' do
+          Rails.logger.debug 'Deletes book'
           book = Book.find(params[:id])
           raise NotFoundError if book.nil?
           book.destroy!
-        end
-
-        desc 'Book search using Google API'
-        params do
-          optional :q, type: String, desc: 'Query Search parameter.'
-        end
-        get '/books/search/:q' do
-          if params[:q].present?
-            # https://github.com/visoft/google_books
-            books = GoogleBooks::API.search(params[:q])
-            raise NotFoundError if books.nil?
-            present books            
-          else
-            # without query param returns http 400
-            error!
-          end
         end
 
     end
