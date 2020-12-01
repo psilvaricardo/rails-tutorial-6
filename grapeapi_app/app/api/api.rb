@@ -6,5 +6,6 @@ class API < Grape::API
 
     mount V1::ApiBooks
     mount V1::ApiPublishers
+    mount V1::ApiCategories
 
 end
