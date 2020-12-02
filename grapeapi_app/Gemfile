@@ -25,20 +25,8 @@ gem 'bootsnap', '>= 1.4.2', require: false
 # Adding grapes to build the REST API
 gem 'grape'
 
-# Very useful gem to visualize API routes
-gem 'grape_on_rails_routes'
-
-# Adds support for the DB using the rails console
-gem 'hirb'
-
-# Adding support to search with the Google Books API
-# gem 'google_books'
-
 # Adding support to add HTTP requests
 gem 'httparty'
-
-# Adding rspec for TDD
-gem 'rspec'
 
 # Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin AJAX possible
 # gem 'rack-cors'
@@ -46,6 +34,19 @@ gem 'rspec'
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
+
+  # Very useful gem to visualize API routes
+  gem 'grape_on_rails_routes'
+  
+  # Adds support for the DB using the rails console
+  gem 'hirb'
+  
+  # Adding rspec for TDD
+  gem 'rspec'
+  gem 'rspec-rails'
+  gem 'faker'
+  gem 'factory_bot_rails'
+  gem 'database_cleaner'
 end
 
 group :development do

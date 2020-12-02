@@ -18,6 +18,9 @@ module V1
         get '/books/search' do
           Rails.logger.debug 'Book search using Google API'
           Rails.logger.debug params
+
+          # https://developers.google.com/books/docs/v1/using#WorkingVolumes
+          # https://medium.com/@akramhelil/google-books-api-with-rails-or-ruby-a931cece427a
           url = "https://www.googleapis.com/books/v1/volumes?q=#{params[:q]}&maxResults=15"
           response = HTTParty.get(url)
           result = response.parsed_response
