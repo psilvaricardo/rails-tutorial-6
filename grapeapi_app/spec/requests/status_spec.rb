@@ -33,7 +33,7 @@ RSpec.describe "Response status" do
             expect(response.status).to eq(200)
             expect(response.body).not_to be_empty
         end
-    end
+    end    
 
     describe "POST /api/v1/books/" do
         it 'should create a new book' do
@@ -51,6 +51,42 @@ RSpec.describe "Response status" do
             }
             
             expect(response.status).to eq(201)
+        end
+    end
+
+    describe "PUT /books/:id" do
+        it 'should update an existing book' do
+            # let's create a random book.
+            post '/api/v1/books/', params:
+            {
+                "book": {
+                    "title": "The Theory of Everything",
+                    "description": "Hawking gave us a new look at our world, our universe, and ourselves.",
+                    "page_count": 119
+                },
+                "publisher": {
+                    "name": "New Millennium Press"
+                },
+                "categories": ["Science ", "Astrophysics"]
+            }
+            
+            # let's update the same book.
+            put  '/api/v1/books/1', params:
+            {
+                "book": {
+                    "title": "The Theory of Nothing",
+                    "description": "Hawking gave us a new look at our world, our universe, and ourselves.",
+                    "page_count": 119
+                },
+                "publisher": {
+                    "name": "New Millennium Press"
+                },
+                "categories": ["Science ", "Astrophysics"]
+            }
+
+            parsed_response = JSON.parse(response.body)
+            expect(parsed_response['title']).to eq('The Theory of Nothing') 
+            # puts parsed_response 
         end
     end
 

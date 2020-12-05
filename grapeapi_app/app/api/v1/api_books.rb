@@ -99,6 +99,7 @@ module V1
 
           end
           book.save!
+          present book, with: V1::Entities::Book
           
         end
 
