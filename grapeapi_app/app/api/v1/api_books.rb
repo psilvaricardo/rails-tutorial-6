@@ -8,7 +8,7 @@ module V1
         get '/books' do
           Rails.logger.debug 'Returns all books'
             books = Book.all
-            present books
+            present books, with: V1::Entities::Book
         end
 
         desc 'Book search using Google API'
@@ -35,8 +35,9 @@ module V1
           book = Book.find(params[:id])
           raise NotFoundError if book.nil?
           # https://stackoverflow.com/questions/3462754/rails-object-relationships-and-json-rendering
-          book.as_json(:include => [:publisher  => { :only => :name }, 
-                                    :categories => { :only => :name } ])
+          #book.as_json(:include => [:publisher  => { :only => :name }, 
+          #                          :categories => { :only => :name } ])
+          present book, with: V1::Entities::Book
         end
 
 

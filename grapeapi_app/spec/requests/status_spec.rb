@@ -1,44 +1,87 @@
 require 'rails_helper'
+require 'factory_bot_rails' 
 
 RSpec.describe "Response status" do
 
     describe "GET /api/v1/books" do
-        it 'books returns a response status code' do
+        it 'should return a valid http response' do
             get('/api/v1/books')
+            # puts response.body
             expect(response.status).to eq(200)
         end
     end
 
-
-    # CHECK LATER
     # https://medium.com/@sedwardscode/how-to-properly-test-a-rails-api-with-rspec-f15cbe1dfd11
+    describe "GET /api/v1/books/:id" do
+        it 'should return a valid http response from given ID' do
+            FactoryBot.create(:book, 
+                id:             1,
+                title:          Faker::Book.title,
+                description:    Faker::Lorem.paragraph,
+                page_count:     Faker::Number.between(from: 100, to: 5000),
+                publisher_id:   FactoryBot.create(:publisher, name: "MCGraw Hill").id,
+                categories:     
+                    [
+                        FactoryBot.create(:category, name: "fakeCat1"), 
+                        FactoryBot.create(:category, name: "FakeCat2")
+                    ]
+                )
 
-    # describe "GET /api/v1/books/:id" do
-    #     let!(:book){ create(:book) }
-    #     it 'returns 200 status for a valid id' do
-    #         get('/api/v1/books/1')
-    #         expect(response.status).to eq(200)
-    #     end
-    # end
+            get('/api/v1/books/1')
+            # puts response.body
 
-    # describe "GET /api/v1/books/:id" do
-    #     let!(:book ){ Book.new }
-    #     it 'returns 404 status for an invalid id' do
-    #         get('/api/v1/books/5000')
-    #         expect(response.status).to raise_error(ActiveRecord::RecordNotFound)
+            expect(response.status).to eq(200)
+            expect(response.body).not_to be_empty
+        end
+    end
+
+    describe "POST /api/v1/books/" do
+        it 'should create a new book' do
+            post '/api/v1/books/', params:
+            {
+                "book": {
+                    "title": "The Theory of Everything",
+                    "description": "Hawking gave us a new look at our world, our universe, and ourselves.",
+                    "page_count": 119
+                },
+                "publisher": {
+                    "name": "New Millennium Press"
+                },
+                "categories": ["Science ", "Astrophysics"]
+            }
             
-    #     end
-    # end
+            expect(response.status).to eq(201)
+        end
+    end
+
+    describe "delete '/books/:id" do
+        it 'should delete the book from the given ID' do
+            FactoryBot.create(:book, 
+                id:             1,
+                title:          Faker::Book.title,
+                description:    Faker::Lorem.paragraph,
+                page_count:     Faker::Number.between(from: 100, to: 5000),
+                publisher_id:   FactoryBot.create(:publisher, name: "MCGraw Hill").id,
+                categories:     
+                    [
+                        FactoryBot.create(:category, name: "fakeCat1"), 
+                        FactoryBot.create(:category, name: "FakeCat2")
+                    ]
+                )
+            delete('/api/v1/books/1')
+            expect(response.status).to eq(200)
+        end
+    end
 
     describe "GET /api/v1/categories" do
-        it 'categories returns a response status code' do
+        it 'should return a valid http response for cateories' do
             get('/api/v1/categories')
             expect(response.status).to eq(200)
         end
     end
 
     describe "GET /api/v1/publishers" do
-        it 'categories returns a response status code' do
+        it 'should return a valid http response for publishers' do
             get('/api/v1/publishers')
             expect(response.status).to eq(200)
         end
