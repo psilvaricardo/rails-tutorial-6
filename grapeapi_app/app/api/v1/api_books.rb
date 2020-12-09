@@ -13,7 +13,7 @@ module V1
 
         desc 'Book search using Google API'
         params do
-          optional :q, type: String, desc: 'Query Search parameter.'
+          requires :q, type: String, desc: 'Query Search parameter.'
         end
         get '/books/search' do
           Rails.logger.debug 'Book search using Google API'

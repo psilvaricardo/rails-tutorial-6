@@ -90,7 +90,23 @@ RSpec.describe "Response status" do
         end
     end
 
-    describe "delete '/books/:id" do
+    describe 'get /books/search' do
+        it 'should return a book from the Google Books API' do
+            get '/api/v1/books/search?q=book'
+
+            expect(response.status).to eq(200)
+            googleapi_response = JSON.parse(response.body)
+            expect(googleapi_response).to be_kind_of(Hash)
+        end
+
+        it 'should return HTTP 400 calling the Google API without params' do
+            get '/api/v1/books/search'
+
+            expect(response.status).to eq(400)
+        end
+    end
+
+    describe "delete /books/:id" do
         it 'should delete the book from the given ID' do
             FactoryBot.create(:book, 
                 id:             1,
